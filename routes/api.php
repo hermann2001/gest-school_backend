@@ -19,4 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('connexionAdminGen/connect/{connect}', [AdminGenController::class, 'connect']);
 Route::get('deconnexionAdminGen', [AdminGenController::class, 'disconnect']);
 
-Route::apiResource('schools', SchoolController::class);
+Route::get('allSchools', [SchoolController::class, 'getSchools']);
+Route::post('createSchool', [SchoolController::class, 'createSchool']);
+Route::get('confirmCreateSchool/{id}', [SchoolController::class, 'confirm']);

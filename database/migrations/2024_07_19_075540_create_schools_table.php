@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('logo')->nullable();
             $table->string('email')->unique();
-            $table->string('username')->unique();
+            $table->string('adresse')->nullable();
             $table->string('password');
             $table->string('phone_number')->nullable()->unique();
+            $table->boolean('verified')->default(false);
+            $table->timestamp('verify_link_send')->nullable();
             $table->timestamps();
         });
     }

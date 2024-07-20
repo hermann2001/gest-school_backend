@@ -13,9 +13,10 @@ class School extends Model
         'name',
         'logo',
         'email',
-        'username',
+        'adresse',
         'password',
         'phone_number',
+        'verify_link_send',
     ];
 
     // Si vous souhaitez masquer le mot de passe lors de la sérialisation
