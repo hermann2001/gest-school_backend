@@ -22,12 +22,12 @@ class SchoolRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'bail|alpha_dash|required|max:100',
-            'logo' => 'bail|required|image',
+            'name' => 'bail|required|max:100',
+            'logo' => 'bail|image|required|max:2048',
             'email' => 'bail|required|email',
             'adresse' => 'bail|required|max:60',
-            'phone_number' => 'bail|required|regex:/^(\+?\d{1,3})?[-. (]*(\d{1,4})[-. )]*(\d{1,4})[-. ]*(\d{1,9})$/',
-            'password' => 'bail|required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#_-])[A-Za-z\d@$!%*?&#_-]{8,}$/'
+            'phone_number' => 'bail|required|numeric',
+            'password' => 'bail|required|min:8'
         ];
     }
 }

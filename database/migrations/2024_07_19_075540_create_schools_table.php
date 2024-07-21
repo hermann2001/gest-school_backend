@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('logo')->nullable();
             $table->string('email')->unique();
             $table->string('adresse')->nullable();
             $table->string('password');
-            $table->string('phone_number')->nullable()->unique();
+            $table->bigInteger('phone_number')->unsigned()->nullable()->unique();
             $table->boolean('verified')->default(false);
             $table->timestamp('verify_link_send')->nullable();
             $table->timestamps();

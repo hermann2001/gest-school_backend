@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Hash;
 
 class CreateSchool extends Mailable
 {
@@ -17,14 +18,16 @@ class CreateSchool extends Mailable
     /**
      * Variable
      */
-    public $school;
+    public $school, $password, $name_hash;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(School $sch)
+    public function __construct(School $sch, String $pass)
     {
         $this->school = $sch;
+        $this->password = $pass;
+        $this->name_hash = Hash::make($sch->name);
     }
 
     /**

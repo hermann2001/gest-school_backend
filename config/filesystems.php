@@ -38,7 +38,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => public_path('school/logo'),
+            'root' => public_path(''),
             'url' => env('APP_URL'),
             'visibility' => 'public',
             'throw' => false,

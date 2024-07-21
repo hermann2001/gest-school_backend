@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 
 class SchoolController extends Controller
 {
@@ -27,45 +28,54 @@ class SchoolController extends Controller
      */
     public function createSchool(SchoolRequest $request)
     {
-        if (!Session::exists('admin_connect')) {
-            return response()->json(['success' => false, 'message' => "Vous n'êtes pas connecté"], 400);
+        if ($request->role != 'AdminGen') {
+            return response()->json(['success' => false, 'message' => "Vous n'êtes pas connecté"], 200);
         }
         try {
             // Enregistrer le logo
             $logoPath = $request->file('logo')->storeAs(
                 'school/logo',
-                $request->input('name') . '.' . $request->file('logo')->extension(),
+                'logo' . $request->name . '.' . $request->file('logo')->extension(),
                 'public'
             );
 
             // Enregistrer l'école dans la base de données
             $school = School::create([
-                'name' => $request->input('name'),
+                'name' => $request->name,
                 'logo' => $logoPath,
-                'email' => $request->input('email'),
-                'adresse' => $request->input('adresse'),
-                'phone_number' => $request->input('phone_number'),
-                'password' => bcrypt($request->input('password')),
+                'email' => $request->email,
+                'adresse' => $request->adresse,
+                'phone_number' => $request->phone_number,
+                'password' => $request->password,
                 'verify_link_send' => now(),
             ]);
 
             // Envoi du mail
-            Mail::to($school->email)->queue(new CreateSchool($school));
+            Mail::to($school->email)->queue(new CreateSchool($school, $request->password));
 
             return response()->json(['success' => true, 'message' => 'École créée avec succès'], 201);
         } catch (Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 200);
         }
     }
 
     /**
      * Confirmation de l'enregistrement
      */
-    public function confirm(string $id)
+    public function confirm(string $name_hash)
     {
         $date = Carbon::now();
 
-        $school = School::find($id);
+        $schools = School::all();
+
+        $school = null;
+
+        foreach ($schools as $sch) {
+            if (Hash::check($sch->name, $name_hash)) {
+                $school = $sch;
+                break;
+            }
+        }
 
         if (!$school) {
             return response()->json(['message' => 'École non trouvée'], 404);
