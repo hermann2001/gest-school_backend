@@ -22,3 +22,5 @@ Route::get('deconnexionAdminGen', [AdminGenController::class, 'disconnect']);
 Route::get('allSchools', [SchoolController::class, 'getSchools']);
 Route::post('createSchool', [SchoolController::class, 'createSchool']);
 Route::get('confirmCreateSchool/{name_hash}', [SchoolController::class, 'confirm']);
+Route::get('resendLinkConfirm/{id}/{connect}', [SchoolController::class, 'resend_verified_mail']);
+Route::get('deleteSchool/{id}/{connect}', [SchoolController::class, 'deleteSchool']);

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->bigInteger('phone_number')->unsigned()->nullable()->unique();
             $table->boolean('verified')->default(false);
+            $table->boolean('deleted')->default(false);
             $table->timestamp('verify_link_send')->nullable();
             $table->timestamps();
         });

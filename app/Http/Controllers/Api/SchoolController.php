@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SchoolRequest;
+use App\Mail\ConfirmMail;
 use App\Mail\CreateSchool;
 use App\Models\School;
 use Carbon\Carbon;
@@ -20,7 +21,7 @@ class SchoolController extends Controller
      */
     public function getSchools()
     {
-        return School::all();
+        return School::where('deleted', false)->get();
     }
 
     /**
@@ -101,24 +102,51 @@ class SchoolController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function resend_verified_mail(string $id, string $connect)
     {
-        //
-    }
+        if ($connect != 'AdminC2C') {
+            return response()->json(['success' => false, 'message' => "Vous n'êtes pas connecté"], 200);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        $school = School::find($id);
+
+        if ($school) {
+            try {
+                // Envoi du mail
+                Mail::to($school->email)->queue(new ConfirmMail($school->name));
+
+                return response()->json(['success' => true, 'message' => 'Lien renvoyé avec succès !'], 200);
+            } catch (Exception $e) {
+                return response()->json(['success' => true, 'message' => 'Erreur d\'envoi du mail'], 200);
+            }
+        } else {
+            return response()->json(['success' => false, 'message' => "Cet Etablissement n'existe pas sur notre plateforme"], 200);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function deleteSchool(string $id, string $connect)
     {
-        //
+        if ($connect != 'AdminC2C') {
+            return response()->json(['success' => false, 'message' => "Vous n'êtes pas connecté"], 200);
+        }
+
+        $school = School::find($id);
+
+        if ($school) {
+            try {
+                // Suppression de l'école
+                $school->deleted = true;
+                $school->save();
+
+                return response()->json(['success' => true, 'message' => 'Etablissement supprimé avec succès !'], 200);
+            } catch (\Throwable $th) {
+                return response()->json(['success' => true, 'message' => 'Erreur de suppression'], 200);
+            }
+        } else {
+            return response()->json(['success' => false, 'message' => "Cet Etablissement n'existe pas sur notre plateforme"], 200);
+        }
     }
 }
