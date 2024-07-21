@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\School;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,22 +10,22 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Hash;
 
-class CreateSchool extends Mailable
+class ConfirmMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Variable
      */
-    public $school, $password;
+    public $id, $name;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(School $sch, String $pass)
+    public function __construct(String $name, String $id)
     {
-        $this->school = $sch;
-        $this->password = $pass;
+        $this->id = $id;
+        $this->name = $name;
     }
 
     /**
@@ -35,7 +34,7 @@ class CreateSchool extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmation d\'Enregistrement !',
+            subject: 'Votre lien de confirmation',
         );
     }
 
@@ -45,7 +44,7 @@ class CreateSchool extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.school_confirm',
+            view: 'emails.confirm_link',
         );
     }
 
