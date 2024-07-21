@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('logo')->nullable();
-            $table->string('email')->unique();
+            $table->string('email', 191)->unique();
             $table->string('adresse')->nullable();
             $table->string('password');
-            $table->string('phone_number')->nullable()->unique();
+            $table->string('phone_number', 191)->nullable()->unique();
             $table->boolean('verified')->default(false);
             $table->timestamp('verify_link_send')->nullable();
             $table->timestamps();
