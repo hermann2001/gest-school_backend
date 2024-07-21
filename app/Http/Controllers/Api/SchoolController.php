@@ -31,7 +31,11 @@ class SchoolController extends Controller
         if ($request->role != 'AdminGen') {
             return response()->json(['success' => false, 'message' => "Vous n'êtes pas connecté"], 200);
         }
+
         try {
+            // Debugging: Log the request data
+            \Log::info('Request Data:', $request->all());
+
             // Enregistrer le logo
             $logoPath = $request->file('logo')->storeAs(
                 'school/logo',
@@ -55,6 +59,8 @@ class SchoolController extends Controller
 
             return response()->json(['success' => true, 'message' => 'École créée avec succès'], 201);
         } catch (Exception $e) {
+            // Debugging: Log the error
+            \Log::error('Error creating school:', ['error' => $e->getMessage()]);
             return response()->json(['success' => false, 'message' => $e->getMessage()], 200);
         }
     }
