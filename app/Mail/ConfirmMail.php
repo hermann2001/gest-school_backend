@@ -17,14 +17,14 @@ class ConfirmMail extends Mailable
     /**
      * Variable
      */
-    public $name_hash, $name;
+    public $id, $name;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(String $name)
+    public function __construct(String $name, String $id)
     {
-        $this->name_hash = Hash::make($name);
+        $this->id = $id;
         $this->name = $name;
     }
 

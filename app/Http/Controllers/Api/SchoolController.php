@@ -63,23 +63,14 @@ class SchoolController extends Controller
     /**
      * Confirmation de l'enregistrement
      */
-    public function confirm(string $name_hash)
+    public function confirm(string $id)
     {
         $date = Carbon::now();
 
-        $schools = School::all();
-
-        $school = null;
-
-        foreach ($schools as $sch) {
-            if (Hash::check($sch->name, $name_hash)) {
-                $school = $sch;
-                break;
-            }
-        }
+        $school = School::find($id);
 
         if (!$school) {
-            return response()->json(['message' => 'École non trouvée'], 404);
+            return response()->json(['message' => 'École non trouvée'], 200);
         }
 
         if (!$school->verified) {
@@ -90,9 +81,9 @@ class SchoolController extends Controller
                 $school->verified = true;
                 $school->save();
 
-                return redirect(env('URL_FRONTEND'), 200);
+                return response()->json(['message' => 'École vérifiée avec succès'], 200);
             } else {
-                return redirect(env('URL_FRONTEND'));
+                return response()->json(['message' => 'Lien de vérification expiré'], 200);
             }
         } else {
             return response()->json(['message' => 'École déjà vérifiée ou lien de vérification non envoyé'], 400);
@@ -113,7 +104,7 @@ class SchoolController extends Controller
         if ($school) {
             try {
                 // Envoi du mail
-                Mail::to($school->email)->queue(new ConfirmMail($school->name));
+                Mail::to($school->email)->queue(new ConfirmMail($school->name, $school->id));
 
                 return response()->json(['success' => true, 'message' => 'Lien renvoyé avec succès !'], 200);
             } catch (Exception $e) {

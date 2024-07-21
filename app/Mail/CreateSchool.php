@@ -18,7 +18,7 @@ class CreateSchool extends Mailable
     /**
      * Variable
      */
-    public $school, $password, $name_hash;
+    public $school, $password;
 
     /**
      * Create a new message instance.
@@ -27,7 +27,6 @@ class CreateSchool extends Mailable
     {
         $this->school = $sch;
         $this->password = $pass;
-        $this->name_hash = Hash::make($sch->name);
     }
 
     /**

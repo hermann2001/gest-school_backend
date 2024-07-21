@@ -17,7 +17,7 @@
         <p>Voici ci-dessous le nouveau lien pour confirmer l'enregistrement de votre établissement sur notre
             plateforme.</p>
         <p><a
-                href='http://localhost:8000/api/confirmCreateSchool/{{ $name_hash }}'>http://localhost:8000/api/confirmCreateSchool/{{ $name_hash }}</a>
+                href='http://localhost:8000/api/confirmCreateSchool/{{ $id }}'>http://localhost:8000/api/confirmCreateSchool/{{ $id }}</a>
         </p>
         <small>Le lien a une validité d'une journée. Ces 24 heures passées, il faudra recontacter l'administrateur de
             la plateforme pour avoir un nouveau lien de confirmation.</small>
