@@ -13,7 +13,7 @@
                 Bonjour {{ $school['name'] }}
             </a>
         </div>
-        <h2>Merci de vous être inscrit à notre plateforme <strong>Gest-School</strong></h2>
+        <h2>Merci de vous être inscrit sur notre plateforme <strong>Gest-School</strong></h2>
         <p>
             Voici vos identifiants pour vous connecter sur la plateforme et gérer votre établissement : <br />
         <ul style="text-align: left; ">

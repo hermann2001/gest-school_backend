@@ -108,7 +108,7 @@ class SchoolController extends Controller
 
                 return response()->json(['success' => true, 'message' => 'Lien renvoyé avec succès !'], 200);
             } catch (Exception $e) {
-                return response()->json(['success' => true, 'message' => 'Erreur d\'envoi du mail'], 200);
+                return response()->json(['success' => false, 'message' => 'Erreur d\'envoi du mail'], 200);
             }
         } else {
             return response()->json(['success' => false, 'message' => "Cet Etablissement n'existe pas sur notre plateforme"], 200);
@@ -133,8 +133,8 @@ class SchoolController extends Controller
                 $school->save();
 
                 return response()->json(['success' => true, 'message' => 'Etablissement supprimé avec succès !'], 200);
-            } catch (\Throwable $th) {
-                return response()->json(['success' => true, 'message' => 'Erreur de suppression'], 200);
+            } catch (Exception $e) {
+                return response()->json(['success' => false, 'message' => 'Erreur de suppression'], 200);
             }
         } else {
             return response()->json(['success' => false, 'message' => "Cet Etablissement n'existe pas sur notre plateforme"], 200);
