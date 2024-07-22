@@ -9,10 +9,7 @@ use App\Mail\CreateSchool;
 use App\Models\School;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Hash;
 
 class SchoolController extends Controller
 {
@@ -32,6 +29,7 @@ class SchoolController extends Controller
         if ($request->role != 'AdminGen') {
             return response()->json(['success' => false, 'message' => "Vous n'êtes pas connecté"], 200);
         }
+
         try {
             // Enregistrer le logo
             $logoPath = $request->file('logo')->storeAs(
