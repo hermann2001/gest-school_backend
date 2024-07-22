@@ -13,7 +13,7 @@
                 Bonjour {{ $school['name'] }}
             </a>
         </div>
-        <h2>Merci de vous être inscrit à notre plateforme <strong>Gest-School</strong></h2>
+        <h2>Merci de vous être inscrit sur notre plateforme <strong>Gest-School</strong></h2>
         <p>
             Voici vos identifiants pour vous connecter sur la plateforme et gérer votre établissement : <br />
         <ul style="text-align: left; ">
@@ -26,7 +26,7 @@
         <p><a
                 href='http://localhost:8000/api/confirmCreateSchool/{{ $school['id'] }}'>http://localhost:8000/api/confirmCreateSchool/{{ $school['id'] }}</a>
         </p>
-        <small>Le lien a une validité d'une journée. Ces 30 minutes passées, il faudra recontacter l'administrateur de
+        <small>Le lien a une validité d'une journée. Ces 24 heures passées, il faudra recontacter l'administrateur de
             la plateforme pour avoir un nouveau lien de confirmation.</small>
         <div style="margin-top: 20px">
             <p>Merci,</p>

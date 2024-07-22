@@ -9,10 +9,7 @@ use App\Mail\CreateSchool;
 use App\Models\School;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Hash;
 
 class SchoolController extends Controller
 {
@@ -34,9 +31,6 @@ class SchoolController extends Controller
         }
 
         try {
-            // Debugging: Log the request data
-            \Log::info('Request Data:', $request->all());
-
             // Enregistrer le logo
             $logoPath = $request->file('logo')->storeAs(
                 'school/logo',
@@ -60,8 +54,6 @@ class SchoolController extends Controller
 
             return response()->json(['success' => true, 'message' => 'École créée avec succès'], 201);
         } catch (Exception $e) {
-            // Debugging: Log the error
-            \Log::error('Error creating school:', ['error' => $e->getMessage()]);
             return response()->json(['success' => false, 'message' => $e->getMessage()], 200);
         }
     }
@@ -114,7 +106,7 @@ class SchoolController extends Controller
 
                 return response()->json(['success' => true, 'message' => 'Lien renvoyé avec succès !'], 200);
             } catch (Exception $e) {
-                return response()->json(['success' => true, 'message' => 'Erreur d\'envoi du mail'], 200);
+                return response()->json(['success' => false, 'message' => 'Erreur d\'envoi du mail'], 200);
             }
         } else {
             return response()->json(['success' => false, 'message' => "Cet Etablissement n'existe pas sur notre plateforme"], 200);
@@ -139,8 +131,8 @@ class SchoolController extends Controller
                 $school->save();
 
                 return response()->json(['success' => true, 'message' => 'Etablissement supprimé avec succès !'], 200);
-            } catch (\Throwable $th) {
-                return response()->json(['success' => true, 'message' => 'Erreur de suppression'], 200);
+            } catch (Exception $e) {
+                return response()->json(['success' => false, 'message' => 'Erreur de suppression'], 200);
             }
         } else {
             return response()->json(['success' => false, 'message' => "Cet Etablissement n'existe pas sur notre plateforme"], 200);
