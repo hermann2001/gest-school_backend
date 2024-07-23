@@ -26,4 +26,4 @@ Route::get('confirmCreateSchool/{id}', [SchoolController::class, 'confirm']);
 Route::get('resendLinkConfirm/{id}/{connect}', [SchoolController::class, 'resend_verified_mail']);
 Route::get('deleteSchool/{id}/{connect}', [SchoolController::class, 'deleteSchool']);
 
-Route::post('school/connexioAdminSchool', [AdminSchoolController::class, 'connect']);
+Route::post('school/connexionAdminSchool', [AdminSchoolController::class, 'connect']);

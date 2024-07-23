@@ -17,10 +17,15 @@ class AdminSchoolController extends Controller
     {
         $school = School::where('email', $request->input('email'))->first();
 
-        if ($school && Hash::check($request->input('password'), $school->password)) {
-            return response()->json(['success' => true, 'message' => 'Connexion réussie', 'school' => $school], 200);
+        if ($school && Hash::check($request->input('password'), $school->password) && !$school->deleted) {
+            if ($school->verified) {
+                $school->role = 'AdminSch';
+                return response()->json(['success' => true, 'school' => $school], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Veuillez vérifier l\'enregistrement de votre établissement pour vous connecter !', 'school' => $school], 200);
+            }
         } else {
-            return response()->json(['success' => false, 'message' => 'Email ou mot de passe incorrect', 'school' => $school], 200);
+            return response()->json(['success' => false, 'message' => 'Email ou mot de passe incorrect !', 'school' => $school], 200);
         }
     }
 }

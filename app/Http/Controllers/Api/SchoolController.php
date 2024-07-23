@@ -73,9 +73,9 @@ class SchoolController extends Controller
 
         if (!$school->verified) {
             $verifyLinkSend = Carbon::parse($school->verify_link_send);
-            $differenceInDays = $verifyLinkSend->diffInDays($date);
+            $differenceInSeconds = $verifyLinkSend->diffInSeconds($date);
 
-            if ($differenceInDays <= 1) {
+            if ($differenceInSeconds <= 86400) {
                 $school->verified = true;
                 $school->save();
 
@@ -101,6 +101,9 @@ class SchoolController extends Controller
 
         if ($school) {
             try {
+                $school->verify_link_send = now();
+                $school->save();
+                
                 // Envoi du mail
                 Mail::to($school->email)->queue(new ConfirmMail($school->name, $school->id));
 
