@@ -22,7 +22,7 @@
         <small>Le lien a une validité d'une journée. Ces 24 heures passées, il faudra recontacter l'administrateur de
             la plateforme pour avoir un nouveau lien de confirmation.</small>
         <div style="margin-top: 20px">
-            <p>Merci,</p>
+            <p>Merci</p>
             <p>Cordialement</p>
             <p>L'équipe de Gest-School</p>
         </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AdminGenController;
+use App\Http\Controllers\Api\AdminSchoolController;
 use App\Http\Controllers\Api\SchoolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,5 @@ Route::post('createSchool', [SchoolController::class, 'createSchool']);
 Route::get('confirmCreateSchool/{id}', [SchoolController::class, 'confirm']);
 Route::get('resendLinkConfirm/{id}/{connect}', [SchoolController::class, 'resend_verified_mail']);
 Route::get('deleteSchool/{id}/{connect}', [SchoolController::class, 'deleteSchool']);
+
+Route::post('school/connexioAdminSchool', [AdminSchoolController::class, 'connect']);
