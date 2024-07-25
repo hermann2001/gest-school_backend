@@ -34,6 +34,7 @@ class ClasseController extends Controller
             Classe::create([
                 'name' => $request->name,
                 'level' => $request->level,
+                'serie' => $request->serie,
                 'effectif' => $request->effectif,
                 'school_id' => $school->id
             ]);

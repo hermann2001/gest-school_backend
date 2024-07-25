@@ -24,6 +24,7 @@ class ClasseRequest extends FormRequest
         return [
             'name' => 'bail|required|max:100',
             'level' => 'bail|required|max:20',
+            'serie' => 'bail|required|max:10',
             'effectif' => 'bail|integer',
             'role' => 'bail|required',
         ];

@@ -12,6 +12,7 @@ class Classe extends Model
     protected $fillable = [
         'name',
         'level',
+        'serie',
         'effectif',
         'school_id'
     ];

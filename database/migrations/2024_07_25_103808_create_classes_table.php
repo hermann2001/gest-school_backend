@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 191);
             $table->string('level')->nullable();
+            $table->string('serie')->nullable();
             $table->integer('effectif')->default(25);
             $table->unsignedBigInteger('school_id');
-            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->foreign('school_id', 191)->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
 
             // Contrainte d'unicité composite
