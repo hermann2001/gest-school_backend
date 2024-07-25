@@ -24,7 +24,7 @@ class ClasseController extends Controller
      */
     public function addClass(ClasseRequest $request, string $id)
     {
-        if ($request->role != 'AdminSh') {
+        if ($request->role != 'AdminSch') {
             return response()->json(['success' => false, 'message' => "Vous n'êtes pas connecté"], 200);
         }
 
