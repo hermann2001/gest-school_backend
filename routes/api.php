@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AdminGenController;
 use App\Http\Controllers\Api\AdminSchoolController;
+use App\Http\Controllers\Api\ClasseController;
 use App\Http\Controllers\Api\SchoolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,6 @@ Route::get('resendLinkConfirm/{id}/{connect}', [SchoolController::class, 'resend
 Route::get('deleteSchool/{id}/{connect}', [SchoolController::class, 'deleteSchool']);
 
 Route::post('school/connexionAdminSchool', [AdminSchoolController::class, 'connect']);
+
+Route::get('getClasses/{schoolId}', [ClasseController::class, 'getClass']);
+Route::post('addClasse/{id}', [ClasseController::class, 'addClass']);
