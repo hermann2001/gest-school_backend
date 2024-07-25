@@ -22,11 +22,11 @@ class ClasseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'bail|required|max:100',
-            'level' => 'bail|required|max:20',
-            'serie' => 'bail|required|max:10',
-            'effectif' => 'bail|integer',
-            'role' => 'bail|required',
+            'name' => 'required|string|max:255',
+            'level' => 'required|string|max:255',
+            'serie' => 'nullable|string|max:255',
+            'effectif' => 'required|integer|min:1',
+            'role' => 'required|string'
         ];
     }
 }
