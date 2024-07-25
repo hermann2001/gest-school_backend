@@ -47,6 +47,7 @@ class SchoolController extends Controller
                 'phone_number' => $request->phone_number,
                 'password' => $request->password,
                 'verify_link_send' => now(),
+                'secondaire' => $request->secondaire,
             ]);
 
             // Envoi du mail
@@ -103,7 +104,7 @@ class SchoolController extends Controller
             try {
                 $school->verify_link_send = now();
                 $school->save();
-                
+
                 // Envoi du mail
                 Mail::to($school->email)->queue(new ConfirmMail($school->name, $school->id));
 

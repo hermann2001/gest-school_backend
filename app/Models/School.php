@@ -17,6 +17,7 @@ class School extends Model
         'password',
         'phone_number',
         'verify_link_send',
+        'secondaire',
     ];
 
     // Si vous souhaitez masquer le mot de passe lors de la sérialisation

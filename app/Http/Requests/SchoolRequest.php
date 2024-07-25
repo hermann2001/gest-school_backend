@@ -26,6 +26,7 @@ class SchoolRequest extends FormRequest
             'logo' => 'bail|image|required|max:2048',
             'email' => 'bail|required|email',
             'adresse' => 'bail|required|max:60',
+            'secondaire' => 'bail|required|boolean',
             'phone_number' => 'bail|required|numeric',
             'password' => 'bail|required|min:8'
         ];

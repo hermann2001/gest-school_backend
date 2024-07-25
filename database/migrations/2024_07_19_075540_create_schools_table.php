@@ -21,6 +21,7 @@ return new class extends Migration
             $table->bigInteger('phone_number')->unsigned()->nullable()->unique();
             $table->boolean('verified')->default(false);
             $table->boolean('deleted')->default(false);
+            $table->boolean('secondaire')->default(true);
             $table->timestamp('verify_link_send')->nullable();
             $table->timestamps();
         });
