@@ -36,14 +36,14 @@ class EleveController extends Controller
                 'parent_telephone' => $request->parent_telephone,
             ]);
 
-            EleveClasse::create([
+            $eleveC = EleveClasse::create([
                 'academic_year' => $request->academic_year,
                 'level' => $request->level,
                 'serie' => $request->serie,
                 'eleve_id' => $eleve->id,
             ]);
 
-            return response()->json(['success' => true, 'message' => 'Inscription réussie !'], 201);
+            return response()->json(['success' => true, 'message' => 'Inscription réussie !', 'eleve' => [$eleve, $eleveC]], 201);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 200);
         }

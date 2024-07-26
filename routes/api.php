@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AdminGenController;
 use App\Http\Controllers\Api\AdminSchoolController;
 use App\Http\Controllers\Api\ClasseController;
 use App\Http\Controllers\Api\SchoolController;
+use App\Http\Controllers\Api\EleveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,5 @@ Route::post('school/connexionAdminSchool', [AdminSchoolController::class, 'conne
 
 Route::get('getClasses/{schoolId}', [ClasseController::class, 'getClass']);
 Route::post('addClasse/{id}', [ClasseController::class, 'addClass']);
+
+Route::post('inscription/{schoolId}', [EleveController::class, 'inscription']);
