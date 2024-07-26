@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('eleve_classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 191);
+            $table->string('academic_year', 20);
             $table->string('level')->nullable();
             $table->string('serie')->nullable();
-            $table->integer('effectif')->default(25);
-            $table->unsignedBigInteger('school_id');
-            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
+            $table->string('resultat')->default('En attente');
+            $table->unsignedBigInteger('eleve_id');
+            $table->foreign('eleve_id')->references('id')->on('eleves')->onDelete('cascade');
+            $table->unsignedBigInteger('classe_id');
+            $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
             $table->timestamps();
-
-            // Contrainte d'unicité composite
-            $table->unique(['name', 'school_id']);
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('eleve_classes');
     }
 };

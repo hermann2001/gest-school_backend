@@ -22,11 +22,11 @@ class SchoolRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'bail|required|max:100',
+            'name' => 'bail|required|max:150',
             'logo' => 'bail|image|required|max:2048',
             'email' => 'bail|required|email',
             'adresse' => 'bail|required|max:60',
-            'secondaire' => 'bail|required|boolean',
+            'secondaire' => 'bail|required',
             'phone_number' => 'bail|required|numeric',
             'password' => 'bail|required|min:8'
         ];
