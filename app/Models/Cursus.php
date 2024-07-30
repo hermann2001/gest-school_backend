@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EleveClasse extends Model
+class Cursus extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'academic_year',
+        'annee_id',
         'level',
         'serie',
         'eleve_id',

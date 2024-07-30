@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('eleve_classes', function (Blueprint $table) {
+        Schema::create('cursuses', function (Blueprint $table) {
             $table->id();
-            $table->string('academic_year', 20);
+            $table->unsignedBigInteger('annee_id');
+            $table->foreign('annee_id')->references('id')->on('annees')->onDelete('cascade');
             $table->string('level')->nullable();
             $table->string('serie')->nullable();
             $table->string('resultat')->default('En attente');
@@ -21,7 +22,6 @@ return new class extends Migration
             $table->foreign('eleve_id')->references('id')->on('eleves')->onDelete('cascade');
             $table->unsignedBigInteger('classe_id')->nullable();
             $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('eleve_classes');
+        Schema::dropIfExists('cursuses');
     }
 };

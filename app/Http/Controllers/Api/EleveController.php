@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InscriptionRequest;
 use App\Models\Eleve;
-use App\Models\EleveClasse;
+use App\Models\Cursus;
 use App\Models\School;
+use App\Models\Annee;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,8 @@ class EleveController extends Controller
     {
         try {
             $school = School::find($SchoolId);
+
+            $annee = Annee::were('name', $request->academic_year)->first();
 
             $lastMatricule = DB::table('eleves')->max('matricule');
             $matricule = $lastMatricule ? $lastMatricule + 1 : 10000001;
@@ -36,8 +39,8 @@ class EleveController extends Controller
                 'parent_telephone' => $request->parent_telephone,
             ]);
 
-            $eleveC = EleveClasse::create([
-                'academic_year' => $request->academic_year,
+            $eleveC = Cursus::create([
+                'academic_year' => $annee->id,
                 'level' => $request->level,
                 'serie' => $request->serie,
                 'eleve_id' => $eleve->id,
