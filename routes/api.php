@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AdminGenController;
 use App\Http\Controllers\Api\AdminSchoolController;
+use App\Http\Controllers\Api\AnneeAcaController;
 use App\Http\Controllers\Api\ClasseController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\EleveController;
@@ -27,6 +28,10 @@ Route::post('createSchool', [SchoolController::class, 'createSchool']);
 Route::get('confirmCreateSchool/{id}', [SchoolController::class, 'confirm']);
 Route::get('resendLinkConfirm/{id}/{connect}', [SchoolController::class, 'resend_verified_mail']);
 Route::get('deleteSchool/{id}/{connect}', [SchoolController::class, 'deleteSchool']);
+
+Route::get('allAcademicsYears', [AnneeAcaController::class, 'getAllYear']);
+Route::get('currentAcademicYear', [AnneeAcaController::class, 'getCurrentYear']);
+Route::post('newAcademicYear', [AnneeAcaController::class, 'createYear']);
 
 Route::post('school/connexionAdminSchool', [AdminSchoolController::class, 'connect']);
 
