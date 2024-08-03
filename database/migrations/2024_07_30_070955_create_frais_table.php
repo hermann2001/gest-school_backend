@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('frais', function (Blueprint $table) {
             $table->id();
+            $table->string('level')->unique();
+            $table->decimal('frais_inscription', 16, 2, true);
+            $table->decimal('frais_reinscription', 16, 2, true);
+            $table->decimal('frais_scolarite', 16, 2, true);
+            $table->decimal('frais_scolarite_tranche1', 16, 2, true);
+            $table->decimal('frais_scolarite_tranche2', 16, 2, true);
+            $table->decimal('frais_scolarite_tranche3', 16, 2, true);
+            $table->unsignedBigInteger('school_id');
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AnneeAcaController;
 use App\Http\Controllers\Api\ClasseController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\EleveController;
+use App\Http\Controllers\Api\FraisController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,5 +38,9 @@ Route::post('school/connexionAdminSchool', [AdminSchoolController::class, 'conne
 
 Route::get('getClasses/{schoolId}', [ClasseController::class, 'getClass']);
 Route::post('addClasse/{id}', [ClasseController::class, 'addClass']);
+
+Route::get('getFrais/{level}/{id}', [FraisController::class, 'getFrais']);
+Route::post('addFrais/{id}', [FraisController::class, 'create']);
+Route::post('updateFrais', [FraisController::class, 'update']);
 
 Route::post('inscription/{schoolId}', [EleveController::class, 'inscription']);

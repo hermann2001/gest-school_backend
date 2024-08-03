@@ -16,7 +16,7 @@ class AnneeAcaController extends Controller
     public function getCurrentYear()
     {
         try {
-            $aca_year = Annee::were('current', true)->first();
+            $aca_year = Annee::where('current', true)->first();
 
             if ($aca_year) {
                 return response()->json(['success' => true, 'yearA' => $aca_year], 200);
@@ -41,7 +41,7 @@ class AnneeAcaController extends Controller
             $name = $date_debut->format('Y') . '-' . $date_fin->format('Y');
 
 
-            $lastY = Annee::were('current', true)->first();
+            $lastY = Annee::where('current', true)->first();
             if ($lastY) {
                 $lastY->current = false;
                 $lastY->save();
