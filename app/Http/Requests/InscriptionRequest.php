@@ -22,6 +22,7 @@ class InscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'photo' => 'bail|image|required|max:2048',
             'nom' => 'bail|required|max:50',
             'prenoms' => 'bail|required|max:150',
             'birthday' => 'bail|required|date',

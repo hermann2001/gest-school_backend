@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('eleves', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('matricule')->unsigned()->unique();
+            $table->string('photo', 500)->nullable();
             $table->string('nom', 191);
             $table->string('prenoms', 500);
             $table->timestamp('birthday');

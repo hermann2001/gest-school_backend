@@ -11,6 +11,7 @@ class Eleve extends Model
 
     protected $fillable = [
         'matricule',
+        'photo',
         'nom',
         'prenoms',
         'birthday',

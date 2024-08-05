@@ -14,5 +14,6 @@ class Cursus extends Model
         'level',
         'serie',
         'eleve_id',
+        'school_id'
     ];
 }

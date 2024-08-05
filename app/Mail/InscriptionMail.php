@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\Cursus;
 use App\Models\Eleve;
-use App\Models\EleveClasse;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -15,16 +15,18 @@ class InscriptionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $schoolName, $eleve, $eleveC;
+    public $schoolName, $schoolMail, $eleve, $eleveC, $linkDownload;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(String $schoolName, Eleve $eleve, EleveClasse $eleveC)
+    public function __construct(String $schoolName, String $schoolMail, Eleve $eleve, Cursus $eleveC, string $linkDownload)
     {
         $this->schoolName = $schoolName;
+        $this->schoolMail = $schoolMail;
         $this->eleve = $eleve;
         $this->eleveC = $eleveC;
+        $this->linkDownload = $linkDownload;
     }
 
     /**
@@ -33,7 +35,8 @@ class InscriptionMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Inscription en ' . $this->schoolName,
+            from: $this->schoolMail,
+            subject: 'Inscription de ' . $this->eleve->nom . ' ' . $this->eleve->prenoms . ' a ' . $this->schoolName,
         );
     }
 
