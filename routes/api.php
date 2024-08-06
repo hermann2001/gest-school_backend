@@ -44,3 +44,5 @@ Route::post('addFrais/{id}', [FraisController::class, 'create']);
 Route::post('updateFrais', [FraisController::class, 'update']);
 
 Route::post('inscription/{schoolId}', [EleveController::class, 'inscription']);
+Route::get('getEleveReins/{matricule}', [EleveController::class, 'getStudent']);
+Route::post('reinscription', [EleveController::class, 'reinscription']);
