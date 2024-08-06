@@ -139,7 +139,7 @@ class EleveController extends Controller
             $school = School::find($newEleveC->school_id);
 
             $pdf = FacadePdf::loadView('fiche_reinscription');
-            $pdfPath = 'fiches/reinscription' . $school->name . '/fiche_reinscription_' . $eleve->matricule . $newEleveC->level . '.pdf';
+            $pdfPath = 'fiches/reinscription' . $school->name . '/' . $annee->name . '/fiche_reinscription_' . $eleve->matricule . $newEleveC->level . '.pdf';
 
             Storage::disk('public')->put($pdfPath, $pdf->output());
 
@@ -148,7 +148,7 @@ class EleveController extends Controller
 
             Mail::to($eleve->parent_email)->queue(new ReinscriptionMail($school->name, $school->email, $eleve, $newEleveC, $downloadLink));
 
-            return response()->json(['success' => true, 'message' => 'Réinscription réussie !', 'eleve' => [$eleve, $eleveC]], 201);
+            return response()->json(['success' => true, 'message' => 'Réinscription réussie !', 'eleve' => [$eleve, $newEleveC]], 201);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 200);
         }

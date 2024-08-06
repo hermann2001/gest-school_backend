@@ -3,6 +3,9 @@
 /public/build
 /public/hot
 /public/storage
+/public/eleve
+/public/fiches
+/public/school
 /storage/*.key
 /vendor
 .env
