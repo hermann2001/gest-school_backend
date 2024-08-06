@@ -11,10 +11,12 @@ use App\Models\Eleve;
 use App\Models\Cursus;
 use App\Models\School;
 use App\Models\Annee;
+use App\Models\Classe;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 
 class EleveController extends Controller
@@ -149,6 +151,46 @@ class EleveController extends Controller
             Mail::to($eleve->parent_email)->queue(new ReinscriptionMail($school->name, $school->email, $eleve, $newEleveC, $downloadLink));
 
             return response()->json(['success' => true, 'message' => 'Réinscription réussie !', 'eleve' => [$eleve, $newEleveC]], 201);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 200);
+        }
+    }
+
+    public function getStudentYear(string $annee, string $level, string $idSchool)
+    {
+        $elevesC = Cursus::where('annee_id', $annee)->where('level', $level)->where('school_id', $idSchool)->get();
+        foreach ($elevesC as $value) {
+            $value->eleveInfo = Eleve::find($value->eleve_id);
+        }
+        return $elevesC;
+    }
+
+    public function affectationClasse(Request $request)
+    {
+        try {
+            $request->validate([
+                'role' => 'bail|required',
+                'eleve_id' => 'bail|required',
+                'level' => 'bail|required',
+                'annee_id' => 'bail|required',
+                'classe_id' => 'bail|required',
+            ]);
+
+            if ($request->input('role') != 'AdminSch') {
+                return response()->json(['success' => false, 'message' => "Vous n'êtes pas connecté"], 200);
+            }
+
+            $eleveC = Cursus::where('annee_id', $request->input('annee_id'))->where('level', $request->input('level'))->where('eleve_id', $request->input('eleve_id'))->first();
+            if ($eleveC) {
+                $classe = Classe::find($request->input('classe_id'));
+                if ($classe) {
+                    $eleveC->classe_id = $classe->id;
+                    $eleveC->save();
+
+                    return response()->json(['success' => true, 'message' => "Classe affectée avec succès !"], 201);
+                }
+            }
+            return response()->json(['success' => false, 'message' => "Erreur d'affectation !"], 200);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 200);
         }

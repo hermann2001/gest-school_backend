@@ -46,3 +46,6 @@ Route::post('updateFrais', [FraisController::class, 'update']);
 Route::post('inscription/{schoolId}', [EleveController::class, 'inscription']);
 Route::get('getEleveReins/{matricule}', [EleveController::class, 'getStudent']);
 Route::post('reinscription', [EleveController::class, 'reinscription']);
+
+Route::get('/getEleveAnneeAcad/{annee}/{level}/{idSchool}', [EleveController::class, 'getStudentYear']);
+Route::post('affectationDeClasse', [EleveController::class, 'affectationClasse']);
