@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('frais', function (Blueprint $table) {
             $table->id();
-            $table->string('level')->unique();
+            $table->string('level', 191)->unique();
             $table->decimal('frais_inscription', 16, 2, true);
             $table->decimal('frais_reinscription', 16, 2, true);
             $table->decimal('frais_scolarite', 16, 2, true);

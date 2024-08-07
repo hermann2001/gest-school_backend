@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('annees', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name', 191)->unique();
             $table->timestamp('date_debut');
             $table->timestamp('date_fin');
             $table->boolean('current')->default(true);
